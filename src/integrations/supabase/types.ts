@@ -2172,6 +2172,47 @@ export type Database = {
           },
         ]
       }
+      lab_case_history: {
+        Row: {
+          case_id: string
+          changed_by: string | null
+          created_at: string
+          from_status: string | null
+          id: string
+          org_id: string
+          reason: string | null
+          to_status: string | null
+        }
+        Insert: {
+          case_id: string
+          changed_by?: string | null
+          created_at?: string
+          from_status?: string | null
+          id?: string
+          org_id: string
+          reason?: string | null
+          to_status?: string | null
+        }
+        Update: {
+          case_id?: string
+          changed_by?: string | null
+          created_at?: string
+          from_status?: string | null
+          id?: string
+          org_id?: string
+          reason?: string | null
+          to_status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lab_case_history_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "lab_cases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       lab_cases: {
         Row: {
           assigned_technician_id: string | null
@@ -2190,6 +2231,8 @@ export type Database = {
           external_client_phone: string | null
           external_contact_person: string | null
           external_patient_name: string | null
+          hold_at: string | null
+          hold_reason: string | null
           id: string
           instructions: string | null
           is_paid: boolean
@@ -2200,12 +2243,16 @@ export type Database = {
           material: string | null
           notes: string | null
           org_id: string
+          parent_case_id: string | null
           patient_id: string | null
+          qc_status: string | null
+          remake_count: number
           remark: string | null
           shade: string | null
           start_date: string | null
           status: string
           technician_id: string | null
+          teeth: string[]
           treatment_id: string | null
           updated_at: string
           urgency: string | null
@@ -2228,6 +2275,8 @@ export type Database = {
           external_client_phone?: string | null
           external_contact_person?: string | null
           external_patient_name?: string | null
+          hold_at?: string | null
+          hold_reason?: string | null
           id?: string
           instructions?: string | null
           is_paid?: boolean
@@ -2238,12 +2287,16 @@ export type Database = {
           material?: string | null
           notes?: string | null
           org_id: string
+          parent_case_id?: string | null
           patient_id?: string | null
+          qc_status?: string | null
+          remake_count?: number
           remark?: string | null
           shade?: string | null
           start_date?: string | null
           status?: string
           technician_id?: string | null
+          teeth?: string[]
           treatment_id?: string | null
           updated_at?: string
           urgency?: string | null
@@ -2266,6 +2319,8 @@ export type Database = {
           external_client_phone?: string | null
           external_contact_person?: string | null
           external_patient_name?: string | null
+          hold_at?: string | null
+          hold_reason?: string | null
           id?: string
           instructions?: string | null
           is_paid?: boolean
@@ -2276,12 +2331,16 @@ export type Database = {
           material?: string | null
           notes?: string | null
           org_id?: string
+          parent_case_id?: string | null
           patient_id?: string | null
+          qc_status?: string | null
+          remake_count?: number
           remark?: string | null
           shade?: string | null
           start_date?: string | null
           status?: string
           technician_id?: string | null
+          teeth?: string[]
           treatment_id?: string | null
           updated_at?: string
           urgency?: string | null
@@ -2307,6 +2366,13 @@ export type Database = {
             columns: ["org_id"]
             isOneToOne: false
             referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lab_cases_parent_case_id_fkey"
+            columns: ["parent_case_id"]
+            isOneToOne: false
+            referencedRelation: "lab_cases"
             referencedColumns: ["id"]
           },
           {
@@ -2487,6 +2553,7 @@ export type Database = {
       lab_records: {
         Row: {
           amount: number
+          case_id: string | null
           created_at: string
           data: Json
           id: string
@@ -2499,6 +2566,7 @@ export type Database = {
         }
         Insert: {
           amount?: number
+          case_id?: string | null
           created_at?: string
           data?: Json
           id?: string
@@ -2511,6 +2579,7 @@ export type Database = {
         }
         Update: {
           amount?: number
+          case_id?: string | null
           created_at?: string
           data?: Json
           id?: string
@@ -2522,6 +2591,13 @@ export type Database = {
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "lab_records_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "lab_cases"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "lab_records_org_id_fkey"
             columns: ["org_id"]
