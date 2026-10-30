@@ -13,6 +13,19 @@ export interface UpdateEntry {
 
 export const updates: UpdateEntry[] = [
   {
+    version: "v2.22.0",
+    date: "October 30, 2026",
+    title: "Industry-standard dental lab workflow",
+    kind: "feature",
+    items: [
+      { kind: "feature", text: "New Quality Control tab with a pass/fail inspection checklist before cases are released." },
+      { kind: "feature", text: "New Materials & Lots tab to trace zirconia, resin and porcelain batches." },
+      { kind: "feature", text: "New Inbound Pickups tab for clinic collection requests." },
+      { kind: "improvement", text: "Price Books, Statements, Payments Received and Credit Notes now appear as Clients & Billing tabs." },
+      { kind: "improvement", text: "Remakes moved to Production, and outsourcing to partner labs has its own section." },
+    ],
+  },
+  {
     version: "v2.21.3",
     date: "October 30, 2026",
     title: "Simpler dental lab menu with section tabs",
