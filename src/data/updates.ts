@@ -13,6 +13,16 @@ export interface UpdateEntry {
 
 export const updates: UpdateEntry[] = [
   {
+    version: "v2.21.3",
+    date: "October 30, 2026",
+    title: "Simpler dental lab menu with section tabs",
+    kind: "improvement",
+    items: [
+      { kind: "improvement", text: "The dental lab sidebar now shows 6 main sections instead of 18+ links." },
+      { kind: "improvement", text: "Related screens inside each section are reached through tabs at the top of the page, like the dental clinic dashboard." },
+    ],
+  },
+  {
     version: "v2.21.2",
     date: "October 30, 2026",
     title: "Sharper, more readable website typography",
