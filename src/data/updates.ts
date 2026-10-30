@@ -13,6 +13,17 @@ export interface UpdateEntry {
 
 export const updates: UpdateEntry[] = [
   {
+    version: "v2.22.1",
+    date: "October 30, 2026",
+    title: "Dental lab case history & production foundations",
+    kind: "improvement",
+    items: [
+      { kind: "feature", text: "Every lab case stage change is now recorded automatically in a case history log." },
+      { kind: "improvement", text: "Lab cases can now store tooth numbers, on-hold reasons, remake links and QC results." },
+      { kind: "improvement", text: "Quality control and remake records can now be linked to a real case." },
+    ],
+  },
+  {
     version: "v2.22.0",
     date: "October 30, 2026",
     title: "Industry-standard dental lab workflow",
