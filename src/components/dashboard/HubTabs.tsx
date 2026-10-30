@@ -13,11 +13,11 @@ export function HubTabs() {
   const { currentOrg, basePath, isBranch } = useOrg();
   const location = useLocation();
   const clinicType = currentOrg?.clinic_type || "dental";
-  if (clinicType !== "dental") return null;
+  if (clinicType !== "dental" && clinicType !== "dental_lab") return null;
 
   const orgRole = currentOrg?.role || "receptionist";
   const relativePath = extractRelativePath(location.pathname);
-  const hub = getHubForPath(relativePath);
+  const hub = getHubForPath(relativePath, clinicType);
   if (!hub) return null;
 
   const tabs = visibleHubTabs(hub, orgRole, clinicType, isBranch);

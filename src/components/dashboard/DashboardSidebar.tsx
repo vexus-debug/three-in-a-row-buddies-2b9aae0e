@@ -42,7 +42,7 @@ export function DashboardSidebar() {
   const config = getClinicConfig(clinicType);
   // Dental: 8 hub domains instead of 30+ individual links; other screens of
   // each hub are reached through the tab bar under the header (HubTabs).
-  const useHubs = clinicType === "dental";
+  const useHubs = clinicType === "dental" || clinicType === "dental_lab";
   const hubs = useHubs ? visibleHubs(orgRole, clinicType, isBranch) : [];
   const relativePath = extractRelativePath(location.pathname);
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({});
@@ -260,7 +260,7 @@ export function DashboardSidebar() {
             <SidebarMenu className="gap-0.5">
               {sharedNavItems.filter((item) =>
                 hasPageAccess(orgRole, item.path, clinicType) &&
-                !(useHubs && item.path === "settings")
+                !(clinicType === "dental" && item.path === "settings")
               ).map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <NavItem item={item} fullUrl={`${basePath}/${item.path}`} />

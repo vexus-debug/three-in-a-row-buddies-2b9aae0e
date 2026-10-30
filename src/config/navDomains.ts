@@ -1,6 +1,6 @@
 import {
   CalendarDays, Users, Stethoscope, Microscope, CreditCard, Package,
-  BarChart3, Settings,
+  BarChart3, Settings, ClipboardList, Wallet, Truck, Wrench,
 } from "lucide-react";
 import { hasPageAccess } from "@/config/roleAccess";
 
@@ -133,8 +133,86 @@ function pathMatchesTab(relativePath: string, tabPath: string): boolean {
   return relativePath === tabPath || (tabPath === "patients" && relativePath.startsWith("patients/"));
 }
 
-export function getHubForPath(relativePath: string): HubDomain | undefined {
-  return DENTAL_HUBS.find((hub) => hub.tabs.some((tab) => pathMatchesTab(relativePath, tab.path)));
+/** Dental lab: same hub pattern, 18+ links collapse into 6 domains. */
+export const DENTAL_LAB_HUBS: HubDomain[] = [
+  {
+    key: "production",
+    title: "Production",
+    icon: ClipboardList,
+    primaryPath: "dlab/cases",
+    tabs: [
+      { title: "Case Board", path: "dlab/cases" },
+      { title: "Calendar", path: "dlab/calendar" },
+      { title: "Recurring Orders", path: "dlab/r/recurring" },
+    ],
+  },
+  {
+    key: "catalogue",
+    title: "Catalogue",
+    icon: Package,
+    primaryPath: "dlab/r/work-types",
+    tabs: [
+      { title: "Work Types", path: "dlab/r/work-types" },
+      { title: "Shade Library", path: "dlab/r/shades" },
+    ],
+  },
+  {
+    key: "clients",
+    title: "Clients & Billing",
+    icon: Wallet,
+    primaryPath: "dlab/clients",
+    tabs: [
+      { title: "Clients", path: "dlab/clients" },
+      { title: "Invoices", path: "dlab/invoices" },
+      { title: "Billing", path: "dlab/billing" },
+    ],
+  },
+  {
+    key: "logistics",
+    title: "Logistics",
+    icon: Truck,
+    primaryPath: "dlab/r/shipments",
+    tabs: [
+      { title: "Shipments", path: "dlab/r/shipments" },
+      { title: "Dispatch Runs", path: "dlab/r/dispatch" },
+      { title: "Warranties & Remakes", path: "dlab/r/warranties" },
+      { title: "External Labs", path: "dlab/r/external-labs" },
+      { title: "Lab Payments", path: "dlab/r/lab-payments" },
+    ],
+  },
+  {
+    key: "workshop",
+    title: "Team & Workshop",
+    icon: Wrench,
+    primaryPath: "staff",
+    tabs: [
+      { title: "Staff", path: "staff" },
+      { title: "Skills Matrix", path: "dlab/r/skills" },
+      { title: "Salary Allocation", path: "dlab/r/salary-allocation" },
+      { title: "Equipment", path: "dlab/r/equipment" },
+    ],
+  },
+  {
+    key: "insights",
+    title: "Insights",
+    icon: BarChart3,
+    primaryPath: "dlab/reports",
+    tabs: [
+      { title: "Reports", path: "dlab/reports" },
+      { title: "Expenses", path: "expenses" },
+    ],
+  },
+];
+
+/** Hub-navigation clinic types and their domains. */
+export function hubsForClinicType(clinicType?: string): HubDomain[] | null {
+  if (clinicType === "dental") return DENTAL_HUBS;
+  if (clinicType === "dental_lab") return DENTAL_LAB_HUBS;
+  return null;
+}
+
+export function getHubForPath(relativePath: string, clinicType: string = "dental"): HubDomain | undefined {
+  return (hubsForClinicType(clinicType) || []).find((hub) => hub.tabs.some((tab) => pathMatchesTab(relativePath, tab.path)));
 }
 
 export function hubIsActive(hub: HubDomain, relativePath: string): boolean {
@@ -150,7 +228,7 @@ export function visibleHubTabs(hub: HubDomain, orgRole: string, clinicType?: str
 }
 
 /** Hubs the role can open, each trimmed to its visible tabs. */
-export function visibleHubs(orgRole: string, clinicType?: string, isBranch?: boolean) {
-  return DENTAL_HUBS.map((hub) => ({ hub, tabs: visibleHubTabs(hub, orgRole, clinicType, isBranch) }))
+export function visibleHubs(orgRole: string, clinicType: string = "dental", isBranch?: boolean) {
+  return (hubsForClinicType(clinicType) || []).map((hub) => ({ hub, tabs: visibleHubTabs(hub, orgRole, clinicType, isBranch) }))
     .filter(({ tabs }) => tabs.length > 0);
 }
