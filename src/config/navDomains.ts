@@ -1,6 +1,6 @@
 import {
   CalendarDays, Users, Stethoscope, Microscope, CreditCard, Package,
-  BarChart3, Settings, ClipboardList, Wallet, Truck, Wrench,
+  BarChart3, Settings, ClipboardList, Wallet, Truck, Wrench, Link2,
 } from "lucide-react";
 import { hasPageAccess } from "@/config/roleAccess";
 
