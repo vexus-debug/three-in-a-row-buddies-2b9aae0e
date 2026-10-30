@@ -143,16 +143,19 @@ export const DENTAL_LAB_HUBS: HubDomain[] = [
     tabs: [
       { title: "Case Board", path: "dlab/cases" },
       { title: "Calendar", path: "dlab/calendar" },
+      { title: "Quality Control", path: "dlab/r/qc" },
+      { title: "Remakes & Warranties", path: "dlab/r/warranties" },
       { title: "Recurring Orders", path: "dlab/r/recurring" },
     ],
   },
   {
     key: "catalogue",
-    title: "Catalogue",
+    title: "Catalogue & Stock",
     icon: Package,
     primaryPath: "dlab/r/work-types",
     tabs: [
       { title: "Work Types", path: "dlab/r/work-types" },
+      { title: "Materials & Lots", path: "dlab/r/materials" },
       { title: "Shade Library", path: "dlab/r/shades" },
     ],
   },
@@ -163,7 +166,11 @@ export const DENTAL_LAB_HUBS: HubDomain[] = [
     primaryPath: "dlab/clients",
     tabs: [
       { title: "Clients", path: "dlab/clients" },
+      { title: "Price Books", path: "dlab/r/client-prices" },
       { title: "Invoices", path: "dlab/invoices" },
+      { title: "Statements", path: "dlab/statements" },
+      { title: "Payments Received", path: "dlab/r/client-payments" },
+      { title: "Credit Notes", path: "dlab/r/credit-notes" },
       { title: "Billing", path: "dlab/billing" },
     ],
   },
@@ -171,11 +178,19 @@ export const DENTAL_LAB_HUBS: HubDomain[] = [
     key: "logistics",
     title: "Logistics",
     icon: Truck,
-    primaryPath: "dlab/r/shipments",
+    primaryPath: "dlab/r/pickups",
     tabs: [
+      { title: "Inbound Pickups", path: "dlab/r/pickups" },
       { title: "Shipments", path: "dlab/r/shipments" },
       { title: "Dispatch Runs", path: "dlab/r/dispatch" },
-      { title: "Warranties & Remakes", path: "dlab/r/warranties" },
+    ],
+  },
+  {
+    key: "outsourcing",
+    title: "Outsourcing",
+    icon: Link2,
+    primaryPath: "dlab/r/external-labs",
+    tabs: [
       { title: "External Labs", path: "dlab/r/external-labs" },
       { title: "Lab Payments", path: "dlab/r/lab-payments" },
     ],
@@ -188,7 +203,7 @@ export const DENTAL_LAB_HUBS: HubDomain[] = [
     tabs: [
       { title: "Staff", path: "staff" },
       { title: "Skills Matrix", path: "dlab/r/skills" },
-      { title: "Salary Allocation", path: "dlab/r/salary-allocation" },
+      { title: "Salary & Piece-rate", path: "dlab/r/salary-allocation" },
       { title: "Equipment", path: "dlab/r/equipment" },
     ],
   },

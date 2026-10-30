@@ -43,6 +43,47 @@ export interface RegisterConfig {
 }
 
 export const LAB_REGISTERS: Record<string, RegisterConfig> = {
+  qc: {
+    kind: "qc", title: "Quality Control", itemName: "inspection", titleLabel: "Case number",
+    description: "Independent final inspection before any case is released to dispatch.",
+    dateLabel: "Inspected", statuses: ["passed", "rework needed", "failed"],
+    fields: [
+      { key: "technician", label: "Made by (technician)" },
+      { key: "inspector", label: "Inspected by" },
+      { key: "margins", label: "Margins", type: "select", options: ["Pass", "Fail"] },
+      { key: "occlusion", label: "Occlusion & contacts", type: "select", options: ["Pass", "Fail"] },
+      { key: "shade", label: "Shade match", type: "select", options: ["Pass", "Fail"] },
+      { key: "finish", label: "Glaze / polish", type: "select", options: ["Pass", "Fail"] },
+      { key: "disinfected", label: "Disinfected & packed", type: "select", options: ["Yes", "No"] },
+      { key: "defect", label: "Defect category", type: "select", options: ["None", "Fit", "Shade", "Contacts", "Occlusion", "Porosity / crack", "Aesthetics", "Other"] },
+      { key: "notes", label: "Inspector notes", type: "textarea" },
+    ],
+  },
+  materials: {
+    kind: "materials", title: "Materials & Lots", itemName: "material lot", titleLabel: "Material",
+    description: "Zirconia discs, resins, porcelains and alloys with lot numbers for traceability.",
+    amountLabel: "Quantity in stock", dateLabel: "Expiry date", statuses: ["in stock", "low", "used up", "recalled"],
+    fields: [
+      { key: "category", label: "Category", type: "select", options: ["Zirconia disc", "Lithium disilicate", "PMMA / wax", "3D printing resin", "Porcelain powder", "Alloy / titanium", "Implant component", "Other"] },
+      { key: "lot", label: "Lot / batch number" },
+      { key: "brand", label: "Manufacturer / brand" },
+      { key: "spec", label: "Shade / size / translucency" },
+      { key: "ce", label: "CE / ISO mark", type: "select", options: ["Yes", "No"] },
+      { key: "supplier", label: "Supplier" },
+    ],
+  },
+  pickups: {
+    kind: "pickups", title: "Inbound Pickups", itemName: "pickup request", titleLabel: "Client clinic",
+    description: "Clinic requests to collect impressions, models or returns.",
+    dateLabel: "Pickup date", statuses: ["requested", "en route", "collected", "checked in"],
+    fields: [
+      { key: "doctor", label: "Doctor" },
+      { key: "items", label: "Items (trays, models)" },
+      { key: "address", label: "Pickup address", type: "textarea" },
+      { key: "urgency", label: "Urgency", type: "select", options: ["Normal", "Rush"] },
+      { key: "driver", label: "Assigned driver" },
+    ],
+  },
   recurring: {
     kind: "recurring", title: "Recurring Orders", itemName: "recurring order", titleLabel: "Order name",
     description: "Standing orders from clinics that repeat on a schedule (e.g. weekly night guards).",
